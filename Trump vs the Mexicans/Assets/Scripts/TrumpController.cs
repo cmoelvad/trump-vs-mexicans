@@ -1,14 +1,19 @@
-﻿using System.Collections;
+﻿using Assets.Scripts;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TrumpController : MonoBehaviour
+public class TrumpController : MonoBehaviour, IDamageable, IWallet
 {
     public float movementSpeed = 5f;
 
     private Animator animator;
     private Rigidbody2D rb2d;
     private bool facingRight = false;
+    public Transform PrefabToBuild;
+    public int money;
+    public int health;
 
     // Start is called before the first frame update
     void Start()
@@ -20,13 +25,55 @@ public class TrumpController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            SpawnPrefab();
+        }
+    }
+
+    void OnCollisionStay2D(Collision2D col)
+    {
+        var buyObject = col.transform.GetComponent<IBuyable>();
+        var attackObject = col.transform.GetComponent<IDamageable>();
+
+        if (buyObject != null )
+        {
+            if (buyObject.CanAffordUpgrade(money))
+            {
+                money = buyObject.BuyUpgrade(money);
+            }
+            
+        } else if (attackObject != null)
+        {
+            AddDamage(attackObject.GetAttackPower());
+        }
+
+    }
+
+    private void SpawnPrefab()
+    {
+        var newWall = Instantiate(PrefabToBuild);
+        newWall.position += gameObject.transform.position + new Vector3(0, 5, 0);
+
+        var itemToBuy = newWall.GetComponent<IBuyable>() ;
+        if (itemToBuy != null)
+        {
+
+            if (!itemToBuy.CanAffordNew(money))
+            {
+                Destroy(newWall.gameObject);
+            }
+            else
+            {
+                money = itemToBuy.BuyNew(money);
+            }
+        }
     }
 
     private void FixedUpdate()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
-        print(horizontal);
+        //print(horizontal);
         Move(horizontal);
     }
 
@@ -38,7 +85,7 @@ public class TrumpController : MonoBehaviour
 
         if(move > 0 && !facingRight || move < 0 && facingRight)
         {
-            print("flip");
+            //print("flip");
             flip();
         }
     }
@@ -50,4 +97,35 @@ public class TrumpController : MonoBehaviour
         theScale.x *= -1;
         transform.localScale = theScale;
     }
+
+    public void AddDamage(int damage)
+    {
+        health -= damage;
+
+        if (health < 0)
+        {
+            KillTrump();
+        }
+    }
+
+    private void KillTrump()
+    {
+        Destroy(gameObject);
+    }
+
+    public void AddHealth(int health)
+    {
+        this.health += health;
+    }
+
+    public int GetAttackPower()
+    {
+        return 0;
+    }
+
+    public void AddMoney(int money)
+    {
+        this.money += money;
+    }
+
 }
