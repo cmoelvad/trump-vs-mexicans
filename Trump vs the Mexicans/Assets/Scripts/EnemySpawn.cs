@@ -9,7 +9,8 @@ public class EnemySpawn : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        InvokeRepeating("SpawnEnemy", spawnTime, spawnTime);
+        SpawnEnemy();
+        //InvokeRepeating("SpawnEnemy", spawnTime, spawnTime);
     }
 
     // Update is called once per frame
@@ -19,7 +20,7 @@ public class EnemySpawn : MonoBehaviour
        
     }
 
-    void SpawnEnemy()
+    public void SpawnEnemy()
     {
         Instantiate(PrefabToSpawn, position: gameObject.transform.position, new Quaternion());
     }

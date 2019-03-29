@@ -8,8 +8,20 @@ public class WallController : MonoBehaviour, IDamageable, IBuyable
     public int _health = 5;
     public int _attack = 5;
     public int _maxHeight = 3;
-    private int _price = 25;
-    
+    private int _price = 30;
+    public bool isGrounded { get; set; } = false;
+
+    private void Update()
+    {
+        if (gameObject.transform.position.y - (gameObject.transform.localScale.y) <= 0) {
+            isGrounded = true;
+        }
+
+        if (!isGrounded) {
+            gameObject.transform.position += new Vector3(0,-0.1f,0);    
+        }
+    }
+
     public void AddDamage(int damage)
     {
         _health -= damage;
@@ -19,7 +31,7 @@ public class WallController : MonoBehaviour, IDamageable, IBuyable
         }
     }
 
-
+   
     void OnCollisionStay2D(Collision2D col)
     {
         if (!col.transform.name.ToLower().Contains("trump") && !col.transform.name.ToLower().Contains("wall"))
@@ -31,10 +43,6 @@ public class WallController : MonoBehaviour, IDamageable, IBuyable
                 AddDamage(attackObject.GetAttackPower());
             }
         }
-
-        
-        
-
     }
 
     public void AddHealth(int health)
@@ -54,7 +62,7 @@ public class WallController : MonoBehaviour, IDamageable, IBuyable
 
     public bool CanAffordUpgrade(int moneyInWallet)
     {
-        return moneyInWallet >= _price;
+        return moneyInWallet >= _price && isGrounded;
     }
 
     public int BuyUpgrade(int moneyInWallet)

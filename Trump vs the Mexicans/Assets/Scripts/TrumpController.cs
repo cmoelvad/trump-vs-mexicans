@@ -128,4 +128,8 @@ public class TrumpController : MonoBehaviour, IDamageable, IWallet
         this.money += money;
     }
 
+    public int GetMoney()
+    {
+        return money;
+    }
 }

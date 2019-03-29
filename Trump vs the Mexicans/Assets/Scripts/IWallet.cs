@@ -9,5 +9,6 @@ namespace Assets.Scripts
     public interface IWallet
     {
         void AddMoney(int money);
+        int GetMoney();
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,8 +30,18 @@ public class EnemyController : MonoBehaviour, IDamageable
         if (health < 0)
         {
             GiveRewards();
+            SpawnEnemy();
+            SpawnEnemy();
+
             Destroy(gameObject);
         }
+    }
+
+    private void SpawnEnemy()
+    {
+        EnemySpawn spawn = GameObject.FindObjectOfType<EnemySpawn>();
+        spawn.SpawnEnemy();
+
     }
 
     public void AddHealth(int health)
