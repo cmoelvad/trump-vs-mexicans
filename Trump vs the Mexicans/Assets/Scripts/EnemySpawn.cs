@@ -12,7 +12,7 @@ public class EnemySpawn : MonoBehaviour
     public int healthToAdd;
     public int attackPowerToAdd;
 
-    public int waveSpawn = 30;
+    public int waveSpawn = 5;
 
     //private float spawnTime = 0.3f;
     // Start is called before the first frame update
@@ -34,6 +34,7 @@ public class EnemySpawn : MonoBehaviour
             attackPowerToAdd++;
             numberOfSpawnedEnemies = 0;
             isAllowedToSpawn = true;
+            SpawnEnemy();
         }
 
     }
@@ -41,8 +42,8 @@ public class EnemySpawn : MonoBehaviour
     public void SpawnEnemy()
     {
         if (isAllowedToSpawn) {
+            numberOfSpawnedEnemies++;
             var enemy = Instantiate(PrefabToSpawn, position: gameObject.transform.position, new Quaternion());
-            numberOfCurrentEnemies++;
             if (numberOfSpawnedEnemies % waveSpawn == 0)
             {
                 var enemyController = enemy.GetComponent<EnemyController>();
