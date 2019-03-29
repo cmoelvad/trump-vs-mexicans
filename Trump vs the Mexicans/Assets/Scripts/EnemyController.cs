@@ -44,6 +44,11 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     }
 
+    internal void AddAttackPower(int attackPowerToAdd)
+    {
+        attackPower += attackPowerToAdd;
+    }
+
     public void AddHealth(int health)
     {
         this.health += health;
