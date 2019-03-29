@@ -14,12 +14,20 @@ public class TrumpController : MonoBehaviour, IDamageable, IWallet
     public Transform PrefabToBuild;
     public int money;
     public int health;
+    public float jumpForce = 20f;
+    public LayerMask whatIsGround;
+
+    const float GROUND_CHECK_RADIUS = .2f;
+    private Transform groundCheck;
+    private bool grounded;
+    private bool jumping;
 
     // Start is called before the first frame update
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        groundCheck = transform.Find("groundCheck");
     }
 
     // Update is called once per frame
@@ -28,6 +36,11 @@ public class TrumpController : MonoBehaviour, IDamageable, IWallet
         if (Input.GetKeyDown(KeyCode.B))
         {
             SpawnPrefab();
+        }
+
+        if (!jumping)
+        {
+            jumping = Input.GetButtonDown("Jump");
         }
     }
 
@@ -73,11 +86,18 @@ public class TrumpController : MonoBehaviour, IDamageable, IWallet
     private void FixedUpdate()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
-        //print(horizontal);
-        Move(horizontal);
+        Move(horizontal, jumping);
+        jumping = false;
+
+        grounded = false;
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheck.position, GROUND_CHECK_RADIUS, whatIsGround);
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            grounded = true;
+        }
     }
 
-    private void Move(float move)
+    private void Move(float move, bool jump)
     {
         animator.SetFloat("speed", move);
 
@@ -87,6 +107,13 @@ public class TrumpController : MonoBehaviour, IDamageable, IWallet
         {
             //print("flip");
             flip();
+        }
+
+        if (grounded && jump)
+        {
+            print("Should jump");
+            grounded = false;
+            rb2d.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
         }
     }
 
