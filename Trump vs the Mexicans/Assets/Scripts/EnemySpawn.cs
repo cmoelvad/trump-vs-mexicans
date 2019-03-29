@@ -11,8 +11,9 @@ public class EnemySpawn : MonoBehaviour
 
     public int healthToAdd;
     public int attackPowerToAdd;
+    private double moneyWorthToAddInPercent = 1;
 
-    public int waveSpawn = 5;
+    public int waveSpawn;
 
     //private float spawnTime = 0.3f;
     // Start is called before the first frame update
@@ -32,8 +33,12 @@ public class EnemySpawn : MonoBehaviour
 
             healthToAdd++;
             attackPowerToAdd++;
+            moneyWorthToAddInPercent += 0.3;
+            print("worh percent is added by 0.3, is now: " + moneyWorthToAddInPercent);
+
             numberOfSpawnedEnemies = 0;
             isAllowedToSpawn = true;
+            waveSpawn = (int) (waveSpawn * 1.3);
             SpawnEnemy();
         }
 
@@ -49,10 +54,9 @@ public class EnemySpawn : MonoBehaviour
                 var enemyController = enemy.GetComponent<EnemyController>();
                 enemyController.AddHealth(healthToAdd);
                 enemyController.AddAttackPower(attackPowerToAdd);
+                enemyController.AddPercentToMoneyWorth(moneyWorthToAddInPercent);
 
             }
-        } else {
-            print("Not allowed to spawn");
         }
 
     }
