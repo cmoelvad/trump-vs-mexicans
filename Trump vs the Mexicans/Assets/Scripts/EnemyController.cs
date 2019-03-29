@@ -8,9 +8,13 @@ public class EnemyController : MonoBehaviour, IDamageable
 {
     public int health;
     private int attackPower = 1;
-    public int moneyWorth;
-   public IWallet ToGiveMoneyTo;
+    private int moneyWorth;
+    public IWallet ToGiveMoneyTo;
 
+    private void Start()
+    {
+        moneyWorth = 20;
+    }
     private void GiveRewards()
     {
         Transform[] objects = GameObject.FindObjectsOfType<Transform>();
@@ -59,10 +63,12 @@ public class EnemyController : MonoBehaviour, IDamageable
         return attackPower;
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    public void AddPercentToMoneyWorth(double percentToAdd) {
+        print("moneyworth: " + moneyWorth);
+        print("percentToAdd: " + percentToAdd);
+        moneyWorth = (int) (moneyWorth * percentToAdd);
+        print("result: " + moneyWorth);
+
     }
 
     // Update is called once per frame

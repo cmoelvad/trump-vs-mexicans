@@ -8,7 +8,7 @@ public class WallController : MonoBehaviour, IDamageable, IBuyable
     public int _health = 5;
     public int _attack = 5;
     public int _maxHeight = 3;
-    private int _price = 30;
+    private int _price = 300;
     public bool isGrounded { get; set; } = false;
 
     private void Update()

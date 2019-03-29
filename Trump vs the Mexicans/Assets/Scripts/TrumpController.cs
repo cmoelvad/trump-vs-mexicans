@@ -61,10 +61,12 @@ public class TrumpController : MonoBehaviour, IDamageable, IWallet
 
             if (!itemToBuy.CanAffordNew(money))
             {
+                print("Cannot afford :(");
                 Destroy(newWall.gameObject);
             }
             else
             {
+                print("Can afford :D");
                 money = itemToBuy.BuyNew(money);
             }
         }
