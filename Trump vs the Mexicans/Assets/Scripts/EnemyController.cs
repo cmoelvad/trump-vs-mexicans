@@ -1,9 +1,10 @@
-﻿using Assets.Scripts;
+using Assets.Scripts;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using UnityEngine.UI;
 
 public class EnemyController : MonoBehaviour, IDamageable
 {
@@ -15,14 +16,17 @@ public class EnemyController : MonoBehaviour, IDamageable
     private float jumpForce = 5;
     private bool grounded;
     public LayerMask whatIsGround;
-
+    public Text textHealth;
+    
     const float GROUND_CHECK_RADIUS = .2f;
     public Transform groundCheck;
 
-    private void Start()
+     private void Start()
     {
         rigidbody = gameObject.GetComponent<Rigidbody2D>();
         //groundCheck = gameObject.GetComponentInChildren<Transform>();
+        textHealth.text = "" + GetHealth();
+        moneyWorth = 20;
     }
 
     private void GiveRewards()
@@ -96,6 +100,7 @@ public class EnemyController : MonoBehaviour, IDamageable
     void Update()
     {
         gameObject.transform.position += new Vector3(0.02f, 0, 0);
+        textHealth.text =""+GetHealth();
     }
 
 

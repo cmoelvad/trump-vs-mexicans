@@ -2,14 +2,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WallController : MonoBehaviour, IDamageable, IBuyable
 {
     public int _health = 5;
     public int _attack = 5;
     public int _maxHeight = 3;
+    public Text textHealth;
+
     private int _price = 300;
     public bool isGrounded { get; set; } = false;
+
+    private void Start()
+    {
+        textHealth.text = "" + _health;
+    }
 
     private void Update()
     {
@@ -20,6 +28,8 @@ public class WallController : MonoBehaviour, IDamageable, IBuyable
         if (!isGrounded) {
             gameObject.transform.position += new Vector3(0,-0.1f,0);    
         }
+
+        textHealth.text = "" + _health;
     }
 
     public void AddDamage(int damage)
@@ -73,6 +83,8 @@ public class WallController : MonoBehaviour, IDamageable, IBuyable
             transform.localScale += new Vector3(0, transform.localScale.y, 0);
             _health *= 2;
             _attack *= 2;
+            float y = textHealth.transform.localScale.y / 2;
+            textHealth.transform.localScale = new Vector3(textHealth.transform.localScale.x, y, textHealth.transform.localScale.z);
             return moneyInWallet - _price;
         }
         return moneyInWallet;
