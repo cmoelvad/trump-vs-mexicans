@@ -88,4 +88,9 @@ public class WallController : MonoBehaviour, IDamageable, IBuyable
     {
         return _attack;
     }
+
+    public int GetHealth()
+    {
+        return _health;
+    }
 }

@@ -7,5 +7,5 @@ public interface IDamageable
     void AddDamage(int damage);
     void AddHealth(int health);
     int GetAttackPower();
-    
+    int GetHealth();
 }
