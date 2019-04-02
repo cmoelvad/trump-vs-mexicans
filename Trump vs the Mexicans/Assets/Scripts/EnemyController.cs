@@ -26,7 +26,6 @@ public class EnemyController : MonoBehaviour, IDamageable
         rigidbody = gameObject.GetComponent<Rigidbody2D>();
         //groundCheck = gameObject.GetComponentInChildren<Transform>();
         textHealth.text = "" + GetHealth();
-        moneyWorth = 20;
     }
 
     private void GiveRewards()
@@ -54,19 +53,11 @@ public class EnemyController : MonoBehaviour, IDamageable
         if (health < 0)
         {
             GiveRewards();
-            SpawnEnemy();
-            //SpawnEnemy();
 
             Destroy(gameObject);
         }
     }
 
-    private void SpawnEnemy()
-    {
-        EnemySpawn spawn = GameObject.FindObjectOfType<EnemySpawn>();
-        //spawn.SpawnEnemy();
-
-    }
 
     internal void AddAttackPower(int attackPowerToAdd)
     {

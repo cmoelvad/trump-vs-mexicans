@@ -71,7 +71,6 @@ public class EnemySpawn : MonoBehaviour
             enemyController.AddHealth(healthToAdd);
             enemyController.AddAttackPower(attackPowerToAdd);
             enemyController.AddPercentToMoneyWorth(moneyWorthToAddInPercent);
-        
 
             enemyController.AddPercentToMoneyWorth(moneyWorthToAddInPercent);
 
