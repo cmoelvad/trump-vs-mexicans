@@ -10,6 +10,8 @@ public class EnemySpawn : MonoBehaviour
     private int numberOfCurrentEnemies;
     private int currentEnemiesInThisWave = 1;
     public bool isAllowedToSpawn = true;
+    private int enemyHealth;
+    private int waveNumber;
 
     public int healthToAdd;
     public int attackPowerToAdd;
@@ -38,11 +40,12 @@ public class EnemySpawn : MonoBehaviour
             isAllowedToSpawn = false;
         } else if (numberOfCurrentEnemies == 0) {
             currentEnemiesInThisWave *= 2;
-            healthToAdd++;
+
+            healthToAdd = (int)(enemyHealth * (0.10 * waveNumber));
+            print("result after int: " + healthToAdd);
             attackPowerToAdd++;
-            moneyWorthToAddInPercent += 0.3;
-            print("worh percent is added by 0.3, is now: " + moneyWorthToAddInPercent);
-            print("HALLOOPKDFOSDJFPOJSDFSFDFSDKFSLDKFDOSJFLISDNFISDFHISDOHFOIDSHFISDHF");
+            moneyWorthToAddInPercent += 0.6;
+            waveNumber++;
 
             numberOfSpawnedEnemies = 0;
             isAllowedToSpawn = true;
@@ -72,11 +75,10 @@ public class EnemySpawn : MonoBehaviour
             enemyController.AddAttackPower(attackPowerToAdd);
             enemyController.AddPercentToMoneyWorth(moneyWorthToAddInPercent);
 
-            enemyController.AddPercentToMoneyWorth(moneyWorthToAddInPercent);
-
             health_Text.text = enemyController.GetHealth() + "";
             attackPower_Text.text = enemyController.GetAttackPower() + "";
             moneyworth_Text.text = enemyController.GetMoneyWorth() + "";
+            enemyHealth = enemyController.GetHealth();
         }
 
     }

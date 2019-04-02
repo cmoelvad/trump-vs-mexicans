@@ -74,12 +74,12 @@ public class TrumpController : MonoBehaviour, IDamageable, IWallet
 
             if (!itemToBuy.CanAffordNew(money))
             {
-                print("Cannot afford :(");
+             
                 Destroy(newWall.gameObject);
             }
             else
             {
-                print("Can afford :D");
+             
                 money = itemToBuy.BuyNew(money);
             }
         }
@@ -113,7 +113,7 @@ public class TrumpController : MonoBehaviour, IDamageable, IWallet
 
         if (grounded && jump)
         {
-            print("Should jump");
+
             grounded = false;
             rb2d.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
         }
