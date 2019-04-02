@@ -29,17 +29,17 @@ public class EnemyController : MonoBehaviour, IDamageable
     private void GiveRewards()
     {
         Transform[] objects = GameObject.FindObjectsOfType<Transform>();
-        foreach(Transform ObjectInArray in objects)
+        foreach (Transform ObjectInArray in objects)
         {
             var wallet = ObjectInArray.GetComponent<IWallet>();
-            if (wallet != null)   
+            if (wallet != null)
             {
                 wallet.AddMoney(moneyWorth);
             }
-            
+
         }
     }
-    
+
     public void AddDamage(int damage)
     {
         health -= damage;
@@ -80,10 +80,11 @@ public class EnemyController : MonoBehaviour, IDamageable
         return health;
     }
 
-    public void AddPercentToMoneyWorth(double percentToAdd) {
+    public void AddPercentToMoneyWorth(double percentToAdd)
+    {
         print("moneyworth: " + moneyWorth);
         print("percentToAdd: " + percentToAdd);
-        moneyWorth = (int) (moneyWorth * percentToAdd);
+        moneyWorth = (int)(moneyWorth * percentToAdd);
         print("result: " + moneyWorth);
 
     }
@@ -91,12 +92,9 @@ public class EnemyController : MonoBehaviour, IDamageable
     // Update is called once per frame
     void Update()
     {
-        gameObject.transform.position += new Vector3(0.02f,0, 0);
+        gameObject.transform.position += new Vector3(0.02f, 0, 0);
     }
-}
 
-
-    }
 
     private void FixedUpdate()
     {
@@ -109,4 +107,4 @@ public class EnemyController : MonoBehaviour, IDamageable
 
         }
     }
-
+}
