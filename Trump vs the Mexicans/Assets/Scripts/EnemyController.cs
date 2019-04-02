@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class EnemyController : MonoBehaviour, IDamageable
 {
@@ -11,9 +12,17 @@ public class EnemyController : MonoBehaviour, IDamageable
     private int moneyWorth;
     public IWallet ToGiveMoneyTo;
     private Rigidbody2D rigidbody;
+    private float jumpForce = 5;
+    private bool grounded;
+    public LayerMask whatIsGround;
+
+    const float GROUND_CHECK_RADIUS = .2f;
+    public Transform groundCheck;
 
     private void Start()
     {
+        rigidbody = gameObject.GetComponent<Rigidbody2D>();
+        //groundCheck = gameObject.GetComponentInChildren<Transform>();
         moneyWorth = 20;
     }
 
@@ -30,6 +39,7 @@ public class EnemyController : MonoBehaviour, IDamageable
             
         }
     }
+    
     public void AddDamage(int damage)
     {
         health -= damage;
@@ -77,5 +87,20 @@ public class EnemyController : MonoBehaviour, IDamageable
     void Update()
     {
         gameObject.transform.position += new Vector3(0.02f,0, 0);
+
     }
+
+    private void FixedUpdate()
+    {
+        grounded = rigidbody.velocity.y > -.1 && rigidbody.velocity.y < .1;
+        var randomNumber = Random.Range(1, 100);
+        if (randomNumber == 1 && grounded)
+        {
+            print(randomNumber + ", " + grounded);
+            rigidbody.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
+
+        }
+    }
+
+
 }
