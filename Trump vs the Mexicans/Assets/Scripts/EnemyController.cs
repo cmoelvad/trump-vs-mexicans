@@ -36,7 +36,7 @@ public class EnemyController : MonoBehaviour, IDamageable
             var wallet = ObjectInArray.GetComponent<IWallet>();
             if (wallet != null)
             {
-                print("trump earned : " + GetMoneyWorth());
+
                 wallet.AddMoney(GetMoneyWorth());
             }
 
@@ -82,8 +82,7 @@ public class EnemyController : MonoBehaviour, IDamageable
     public void AddPercentToMoneyWorth(double percentToAdd)
     {
         moneyWorth = (int)(moneyWorth * percentToAdd);
-        print("moneyWorth was multiplied with: " + percentToAdd);
-        print("moneyWorth is now pr enemy: " + GetMoneyWorth());
+
 
     }
 
