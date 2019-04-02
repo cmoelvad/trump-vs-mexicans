@@ -152,6 +152,11 @@ public class TrumpController : MonoBehaviour, IDamageable, IWallet
         return 0;
     }
 
+    public int GetHealth()
+    {
+        return health;
+    }
+
     public void AddMoney(int money)
     {
         this.money += money;

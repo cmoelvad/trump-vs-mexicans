@@ -63,6 +63,11 @@ public class EnemyController : MonoBehaviour, IDamageable
         return attackPower;
     }
 
+    public int GetHealth()
+    {
+        return health;
+    }
+
     public void AddPercentToMoneyWorth(double percentToAdd) {
         print("moneyworth: " + moneyWorth);
         print("percentToAdd: " + percentToAdd);
@@ -76,4 +81,5 @@ public class EnemyController : MonoBehaviour, IDamageable
     {
         gameObject.transform.position += new Vector3(0.02f,0, 0);
     }
+
 }
