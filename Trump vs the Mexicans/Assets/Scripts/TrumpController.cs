@@ -139,6 +139,7 @@ public class TrumpController : MonoBehaviour, IDamageable, IWallet
 
     private void KillTrump()
     {
+        GameController.Restart();
         Destroy(gameObject);
     }
 
