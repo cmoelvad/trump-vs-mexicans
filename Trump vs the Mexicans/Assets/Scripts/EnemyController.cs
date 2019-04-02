@@ -10,11 +10,13 @@ public class EnemyController : MonoBehaviour, IDamageable
     private int attackPower = 1;
     private int moneyWorth;
     public IWallet ToGiveMoneyTo;
+    private Rigidbody2D rigidbody;
 
     private void Start()
     {
         moneyWorth = 20;
     }
+
     private void GiveRewards()
     {
         Transform[] objects = GameObject.FindObjectsOfType<Transform>();
