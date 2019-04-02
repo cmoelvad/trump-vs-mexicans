@@ -9,7 +9,7 @@ public class EnemyController : MonoBehaviour, IDamageable
 {
     public int health;
     private int attackPower = 1;
-    private int moneyWorth;
+    private int moneyWorth = 20;
     public IWallet ToGiveMoneyTo;
     private Rigidbody2D rigidbody;
     private float jumpForce = 5;
@@ -23,7 +23,6 @@ public class EnemyController : MonoBehaviour, IDamageable
     {
         rigidbody = gameObject.GetComponent<Rigidbody2D>();
         //groundCheck = gameObject.GetComponentInChildren<Transform>();
-        moneyWorth = 20;
     }
 
     private void GiveRewards()
@@ -34,10 +33,15 @@ public class EnemyController : MonoBehaviour, IDamageable
             var wallet = ObjectInArray.GetComponent<IWallet>();
             if (wallet != null)
             {
-                wallet.AddMoney(moneyWorth);
+                print("trump earned : " + GetMoneyWorth());
+                wallet.AddMoney(GetMoneyWorth());
             }
 
         }
+    }
+
+    public int GetMoneyWorth() {
+        return moneyWorth;
     }
 
     public void AddDamage(int damage)
@@ -47,7 +51,7 @@ public class EnemyController : MonoBehaviour, IDamageable
         {
             GiveRewards();
             SpawnEnemy();
-            SpawnEnemy();
+            //SpawnEnemy();
 
             Destroy(gameObject);
         }
@@ -56,7 +60,7 @@ public class EnemyController : MonoBehaviour, IDamageable
     private void SpawnEnemy()
     {
         EnemySpawn spawn = GameObject.FindObjectOfType<EnemySpawn>();
-        spawn.SpawnEnemy();
+        //spawn.SpawnEnemy();
 
     }
 
@@ -82,10 +86,9 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     public void AddPercentToMoneyWorth(double percentToAdd)
     {
-        print("moneyworth: " + moneyWorth);
-        print("percentToAdd: " + percentToAdd);
         moneyWorth = (int)(moneyWorth * percentToAdd);
-        print("result: " + moneyWorth);
+        print("moneyWorth was multiplied with: " + percentToAdd);
+        print("moneyWorth is now pr enemy: " + GetMoneyWorth());
 
     }
 
@@ -102,7 +105,6 @@ public class EnemyController : MonoBehaviour, IDamageable
         var randomNumber = Random.Range(1, 100);
         if (randomNumber == 1 && grounded)
         {
-            print(randomNumber + ", " + grounded);
             rigidbody.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
 
         }
