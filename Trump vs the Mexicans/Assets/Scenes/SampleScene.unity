@@ -873,6 +873,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCharacter: {fileID: 1695589045}
   moneyText: {fileID: 1974046676}
+  canvasController: {fileID: 2045099846}
 --- !u!4 &1146086967
 Transform:
   m_ObjectHideFlags: 0
@@ -949,6 +950,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1164c879eba899479cb65ebd983cf15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gc: {fileID: 0}
 --- !u!61 &1439545575
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1234,6 +1236,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 570ea09b2c1ff0d40bbb9950b5e91ffe, type: 3}
+--- !u!4 &2045099846 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1576447178941301919, guid: 9808713ae1ad25e4ba61bb7e805459bb,
+    type: 3}
+  m_PrefabInstance: {fileID: 329914218733949816}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2087062504 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8074259188317520477, guid: e41840900d64a2e4785fbb289fc3b5ce,
@@ -1360,6 +1368,11 @@ PrefabInstance:
       propertyPath: m_FontData.m_FontStyle
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7610429814490851562, guid: 9808713ae1ad25e4ba61bb7e805459bb,
+        type: 3}
+      propertyPath: mainCharacter
+      value: 
+      objectReference: {fileID: 1695589045}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9808713ae1ad25e4ba61bb7e805459bb, type: 3}
 --- !u!1001 &350175791661770314
@@ -2010,6 +2023,16 @@ PrefabInstance:
       propertyPath: jumpForce
       value: 500
       objectReference: {fileID: 0}
+    - target: {fileID: 8735553185663421877, guid: e41840900d64a2e4785fbb289fc3b5ce,
+        type: 3}
+      propertyPath: gc
+      value: 
+      objectReference: {fileID: 1146086966}
+    - target: {fileID: 8735553185663421877, guid: e41840900d64a2e4785fbb289fc3b5ce,
+        type: 3}
+      propertyPath: gamecontroller
+      value: 
+      objectReference: {fileID: 1146086966}
     - target: {fileID: 7865970646439979306, guid: e41840900d64a2e4785fbb289fc3b5ce,
         type: 3}
       propertyPath: m_Constraints
