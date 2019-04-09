@@ -16,6 +16,7 @@ public class TrumpController : MonoBehaviour, IDamageable, IWallet
     public int health;
     public float jumpForce = 20f;
     public LayerMask whatIsGround;
+    public GameController gamecontroller;
 
     const float GROUND_CHECK_RADIUS = .2f;
     private Transform groundCheck;
@@ -139,8 +140,7 @@ public class TrumpController : MonoBehaviour, IDamageable, IWallet
 
     private void KillTrump()
     {
-        GameController.Restart();
-        Destroy(gameObject);
+        gamecontroller.GoToHighScore();
     }
 
     public void AddHealth(int health)

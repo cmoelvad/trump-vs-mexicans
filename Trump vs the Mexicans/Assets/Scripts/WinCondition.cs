@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class WinCondition : MonoBehaviour
 {
+    public GameController gc;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.transform.tag == "Enemy")
         {
-            GameController.Restart();
+            gc.GoToHighScore();
         }
     }
 }
