@@ -34,7 +34,10 @@ public class CanvasController : MonoBehaviour
         Time.timeScale = 1;
         GameController.SetGameState(1);
     }
+    public void setHighscore(float highscore)
+    {
 
+    }
     public void Highscore()
     {
         Time.timeScale = 0;
@@ -54,7 +57,7 @@ public class CanvasController : MonoBehaviour
 
     public void ExitGame()
     {
-        
+        Application.Quit();
     }
 
     public void ReturnToMenu()
