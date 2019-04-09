@@ -89,7 +89,8 @@ public class EnemyController : MonoBehaviour, IDamageable
     // Update is called once per frame
     void Update()
     {
-        gameObject.transform.position += new Vector3(0.02f, 0, 0);
+        //  gameObject.transform.position +=  new Vector3(0.02f, 0, 0) ;
+        gameObject.transform.position += Vector3.right * Time.deltaTime * 2.0f;
         textHealth.text =""+GetHealth();
     }
 

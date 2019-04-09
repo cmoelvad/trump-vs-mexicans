@@ -22,6 +22,7 @@ public class TrumpController : MonoBehaviour, IDamageable, IWallet
     private Transform groundCheck;
     private bool grounded;
     private bool jumping;
+    private bool trumpWasKilled;
 
     // Start is called before the first frame update
     void Start()
@@ -140,7 +141,14 @@ public class TrumpController : MonoBehaviour, IDamageable, IWallet
 
     private void KillTrump()
     {
-        gamecontroller.GoToHighScore();
+       
+        if (!trumpWasKilled)
+        {
+            trumpWasKilled = true;
+            gamecontroller.GoToHighScore();
+
+        }
+       
     }
 
     public void AddHealth(int health)
