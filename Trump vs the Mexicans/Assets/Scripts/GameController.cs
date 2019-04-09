@@ -10,7 +10,7 @@ public class GameController : MonoBehaviour
     public enum GameState {  MAINMENU, PLAYING, HIGHSCORE}
     public Transform mainCharacter;
     public Text moneyText;
-    public Transform cc;
+    public CanvasController cc;
     private static GameState gameState;
 
     private void Update()
@@ -24,7 +24,7 @@ public class GameController : MonoBehaviour
 
     public void GoToHighScore()
     {
-        cc.GetComponent<CanvasController>().Highscore();
+        cc.Highscore();
     }
 
     public static void SetGameState(int state)
