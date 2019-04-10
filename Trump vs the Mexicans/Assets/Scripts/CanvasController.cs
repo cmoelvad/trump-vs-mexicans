@@ -5,17 +5,23 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Assets.Scripts;
 using System.IO;
+using System.Net;
+using System;
+using UnityEngine.Networking;
+using System.Text;
 
 public class CanvasController : MonoBehaviour
 {
     public Transform mainMenu;
     public Transform highscore;
     public Transform enemySpawn;
-
+    public InputField playerName;
+    private List<ScoreObject> scores = new List<ScoreObject>();
     public Text finalScore;
     // Start is called before the first frame update
     void Start()
     {
+        StartCoroutine(GetLeaderboard());
         Time.timeScale = 0;
         finalScore.text = "";
     }
@@ -40,50 +46,37 @@ public class CanvasController : MonoBehaviour
 
     public void Highscore()
     {
+        try
+        {
+
+       
         Time.timeScale = 0;
         var enemySpawnObj = enemySpawn.GetComponent<EnemySpawn>();
         if (enemySpawnObj != null)
         {
-            ArrayList scores = new ArrayList();
-            Debug.Log("im in highscore!");
+           
+
             finalScore.text = "Your score was " + (enemySpawnObj.healthToAdd + 500) + "\n\n";
 
-            FileStream highScoreFile;
-            if (!File.Exists("highscores.txt"))
-            {
-                highScoreFile = File.Create("highscores.txt");
-                Debug.Log("Created new highscore");
-            } else
-            {
-                highScoreFile = File.Open("highscores.txt",FileMode.Append);
-                Debug.Log("highscore already existed");
-            }
-         
-            using (StreamWriter streamWriter = new StreamWriter(highScoreFile))
-            {
-                streamWriter.WriteLine((enemySpawnObj.healthToAdd + 500));
-                Debug.Log("writing " + (enemySpawnObj.healthToAdd + 500) + "to file");
-            }
-
-            var allLines = File.ReadAllLines("highscores.txt");
-            foreach (string line in allLines)
-            {
-                scores.Add(int.Parse(line));
-            }
-            scores.Sort();
-            scores.Reverse();
-            Debug.Log("there was " + scores.ToArray().Length + "nr of scores");
+                StartCoroutine(PutScoreToLeaderboard(new ScoreObject
+                {
+                    name = playerName.text,
+                    score = (enemySpawnObj.healthToAdd + 500)
+                }));
                 
-            
-            int ranking = 1;
-            foreach (int score in scores)
-            {
-                finalScore.text += ranking + ") " + score + "\n";
-                ranking++;
-            }
 
-            highScoreFile.Close();
-        }
+               
+                scores.Sort();
+                scores.Reverse();
+
+                int ranking = 1;
+                foreach (var score in scores)
+                {
+                    finalScore.text += ranking + ") " + score.name + " (" + score.score + ") \n";
+                    ranking++;
+                }
+
+            }
         else
         {
             finalScore.text = "NO SCORE YET!";
@@ -91,6 +84,10 @@ public class CanvasController : MonoBehaviour
         highscore.gameObject.SetActive(true);
         mainMenu.gameObject.SetActive(false);
         GameController.SetGameState(2);
+        }catch(Exception e)
+        {
+
+        }
     }
 
     public void ExitGame()
@@ -98,6 +95,64 @@ public class CanvasController : MonoBehaviour
         Application.Quit();
     }
 
+    private IEnumerator GetLeaderboard()
+    {
+        string url = "http://mbirch.dk/trump/api/index.php?method=get";
+        UnityWebRequest www = UnityWebRequest.Get(url);
+        yield return www.SendWebRequest();
+
+        if (www.isNetworkError || www.isHttpError)
+        {
+            Debug.Log(www.error);
+        }
+        else
+        {
+            // Show results as text
+            Debug.Log(www.downloadHandler.text);
+            var line = www.downloadHandler.text;
+
+            var dataArray = line.Split(' ');
+            foreach (string data in dataArray)
+            {
+                var scoreName = data.Split(',');
+                Debug.Log(data);
+
+                if (data == "" || data == " ")
+                {
+                    continue;
+                }
+
+                scores.Add(new ScoreObject
+                {
+                    name = scoreName[1],
+                    score = int.Parse(scoreName[0])
+                });
+            }
+
+
+        }
+
+    }
+    private IEnumerator PutScoreToLeaderboard(ScoreObject scoreObject)
+    {
+        string url = "http://mbirch.dk/trump/api/index.php?method=put&score="+scoreObject.score + "," + scoreObject.name;
+
+        UnityWebRequest www = UnityWebRequest.Get(url);
+        yield return www.SendWebRequest();
+
+        if (www.isNetworkError || www.isHttpError)
+        {
+            Debug.Log(www.error);
+        }
+        else
+        {
+            // Show results as text
+            Debug.Log(www.downloadHandler.text);
+
+            // Or retrieve results as binary data
+            byte[] results = www.downloadHandler.data;
+        }
+    }
     public void ReturnToMenu()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);

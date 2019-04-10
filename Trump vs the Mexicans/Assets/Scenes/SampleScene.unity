@@ -1500,11 +1500,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1095261628, guid: 9808713ae1ad25e4ba61bb7e805459bb, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 40.1
+      value: 36
       objectReference: {fileID: 0}
     - target: {fileID: 1095261628, guid: 9808713ae1ad25e4ba61bb7e805459bb, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 200.6
+      value: 140.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1095261628, guid: 9808713ae1ad25e4ba61bb7e805459bb, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9808713ae1ad25e4ba61bb7e805459bb, type: 3}
